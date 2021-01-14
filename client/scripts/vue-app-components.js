@@ -4,6 +4,7 @@
 
 var appComponents = {
   //'template': httpVueLoader('./components/template.vue'),
-  'app-header': httpVueLoader('./components/APPHeader/APPHeader.vue'),
-  'project-file-list': httpVueLoader('./components/ProjectFileList/ProjectFileList.vue'),
+  'app-header': httpVueLoader('./components/app-header/app-header.vue'),
+  'favicon-generator': httpVueLoader('./components/favicon-generator/favicon-generator.vue'),
+  'project-file-list': httpVueLoader('./components/project-file-list/project-file-list.vue')
 }
