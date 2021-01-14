@@ -158,7 +158,7 @@ module.exports = {
     <meta name="msapplication-TileColor" content="${this.theme_color}">
     <meta name="msapplication-TileImage" content="${iconsPath}ms-icon-144x144.png">
     <meta name="theme-color" content="${this.theme_color}">
-    <link rel="manifest" href="/manifest.json">`
+    <link rel="manifest" href="./manifest.json">`
     }
   },
   methods: {
