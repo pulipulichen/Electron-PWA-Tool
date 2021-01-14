@@ -4,7 +4,7 @@
 #include <WinAPIFiles.au3>
 #include <Array.au3>
 
-#pragma compile(Icon, 'favicon.ico')
+#pragma compile(Icon, '..\client\img\icon\favicon.ico')
 
 $ParentDir = StringLeft(@scriptDir,StringInStr(@scriptDir,"\",0,-1)-1)
 $CMD = "npm run start-electron"

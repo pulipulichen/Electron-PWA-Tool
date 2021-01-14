@@ -1,6 +1,13 @@
 {
-  "elements": {},
+  "elements": {
+    "style": {
+      "attributes": {
+        "lang": {}
+      }
+    }
+  },
   "attributes": {
+    "src": {},
     "v-model": {}
   }
 }
