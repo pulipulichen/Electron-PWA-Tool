@@ -175,11 +175,11 @@ self.addEventListener('fetch', event => {
         this.fileList = content
         
         if (content.length > 0) {
-          this.renew = true
+          this.copied = true
           this.$refs.CopyButton.focus()
         }
         else {
-          this.renew = false
+          this.copied = false
         }
       });
       ipcRenderer.send('queryProjectFileList', {
@@ -191,7 +191,7 @@ self.addEventListener('fetch', event => {
     },
     copyFileList () {
       ClipboardUtils.copyPlainString(this.fileListText)
-      this.renew = false
+      this.copied = false
     },
     resetExcludePatternsText () {
       this.excludePatternsText = this.defaultExcludePatternsText

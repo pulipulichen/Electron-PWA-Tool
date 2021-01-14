@@ -94,6 +94,7 @@ module.exports = {
     }
     
     this.modal = $(this.$refs.Modal).modal({
+      autofocus: false,
       onHide: () => {
         //console.log(this.colorPicked)
         this.resolve(this.colorPicked)

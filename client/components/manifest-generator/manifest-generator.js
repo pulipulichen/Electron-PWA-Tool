@@ -1,5 +1,5 @@
 
-/* global ClipboardUtils, FileUtils */
+/* global ClipboardUtils, FileUtils, shell */
 
 module.exports = {
   data () {
@@ -10,16 +10,70 @@ module.exports = {
       theme_color: '#E1F7F7',
       description: 'Test description',
       iconsPath: 'img/favicon/',
-      copiedManifestJSON: false,
-      copiedHeaderHTML: false,
+      copiedManifestJSON: true,
+      copiedHeaderHTML: true,
+      searchFaviconQuery: '',
+      inited: false
     }
   },
-//  async mounted () {
-//    
-//  },
-//  watch: {
-//    
-//  },
+  async mounted () {
+    this.dataLoad()
+    
+    setTimeout(() => {
+      this.inited = true
+    }, 500)
+  },
+  watch: {
+    name () {
+      if (this.inited === false) {
+        return false
+      }
+      
+      this.dataSave()
+      this.copiedManifestJSON = false
+    },
+    short_name () {
+      if (this.inited === false) {
+        return false
+      }
+      
+      this.dataSave()
+      this.copiedManifestJSON = false
+    },
+    background_color () {
+      if (this.inited === false) {
+        return false
+      }
+      
+      this.dataSave()
+      this.copiedManifestJSON = false
+    },
+    theme_color () {
+      if (this.inited === false) {
+        return false
+      }
+      
+      this.dataSave()
+      this.copiedHeaderHTML = false
+    },
+    description () {
+      if (this.inited === false) {
+        return false
+      }
+      
+      this.dataSave()
+      this.copiedManifestJSON = false
+    },
+    iconsPath () {
+      if (this.inited === false) {
+        return false
+      }
+      
+      this.dataSave()
+      this.copiedManifestJSON = false
+      this.copiedHeaderHTML = false
+    }
+  },
   computed: {
     manifestJSON () {
       let iconsPath = this.iconsPath
@@ -86,7 +140,7 @@ module.exports = {
         iconsPath = iconsPath + '/'
       }
       
-      return `<link rel="apple-touch-icon" sizes="57x57" href="${this.iconsPath}apple-icon-57x57.png">
+      return `    <link rel="apple-touch-icon" sizes="57x57" href="${this.iconsPath}apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="${this.iconsPath}apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="${this.iconsPath}apple-icon-72x72.png">
     <link rel="apple-touch-icon" sizes="76x76" href="${this.iconsPath}apple-icon-76x76.png">
@@ -105,17 +159,50 @@ module.exports = {
     }
   },
   methods: {
+    dataLoad () {
+      let projectFileListData = localStorage.getItem('dataManifestGenerator')
+      if (!projectFileListData) {
+        return false
+      }
+      
+      projectFileListData = JSON.parse(projectFileListData)
+      for (let key in projectFileListData) {
+        this[key] = projectFileListData[key]
+      }
+    },
+    dataSave () {
+      if (this.inited === false) {
+        return false
+      }
+      
+      let keys = [
+        'name',
+        'short_name',
+        'background_color',
+        'theme_color',
+        'description',
+        'iconsPath',
+      ]
+      
+      let data = {}
+      keys.forEach(key => {
+        data[key] = this[key]
+      })
+      
+      data = JSON.stringify(data)
+      localStorage.setItem('dataManifestGenerator', data)
+    },
     copyManifestJSON () {
       ClipboardUtils.copyPlainString(this.manifestJSON)
-      this.copiedManifestJSON = false
+      this.copiedManifestJSON = true
     },
     saveManifestJSON () {
       FileUtils.download('manifest.json', this.manifestJSON)
-      this.copiedManifestJSON = false
+      this.copiedManifestJSON = true
     },
     copyHeaderHTML () {
       ClipboardUtils.copyPlainString(this.headerHTML)
-      this.copiedHeaderHTML = false
+      this.copiedHeaderHTML = true
     },
     selectThemeColor: async function () {
       let color = await this.$parent.$refs.ColorSelector.selectColor(this.theme_color)
@@ -131,5 +218,16 @@ module.exports = {
       }
       this.background_color = color
     },
+    searchFavicon () {
+      //console.log('aaa')
+      
+      let urlList = [
+        `https://www.iconninja.com/tag/${this.searchFaviconQuery}-icon`,
+        `https://findicons.com/search/${this.searchFaviconQuery}`,
+        `https://www.flaticon.com/search?word=${this.searchFaviconQuery}&search-type=icons&license=selection&order_by=4&grid=small`
+      ].forEach(url => {
+        shell.openExternal(url)
+      })
+    }
   }
 }

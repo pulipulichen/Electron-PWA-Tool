@@ -42,21 +42,47 @@
     <button class="ui fluid button"
               type="button"
               v-on:click="queryProjectFileList"
-              v-bind:class="{disabled: (projectPath === '')}">List</button>
+              v-bind:class="{disabled: (projectPath === '')}">GET PRECACHE_URLS</button>
   </div>
   
-  <div class="field" v-if="fileList.length > 0">
-    <label>File lists</label>
-    <textarea v-model="fileListText" onfocus="this.select()"
-              class="ui attached"></textarea>
-    <div class="ui bottom attached fluid buttons"
-         v-bind:class="{disabled: (fileList.length === 0)}">
-      <button type="button" class="ui button"
-              v-on:click="saveServiceWorkerCode"
-              ref="SaveButton">SAVE</button>
-      <button v-bind:class="{positive: copied}" type="button" class="ui button"
-              v-on:click="copyServiceWorkerCode"
-              ref="CopyButton">COPY</button>
+  <div v-show="fileList.length > 0">
+    <h3 class="ui horizontal divider header" 
+        v-show="fileList.length > 0">
+      Output
+    </h3>
+
+    <div class="field">
+      <label>File lists</label>
+      <textarea v-model="fileListText" onfocus="this.select()"></textarea>
     </div>
+    
+    <div class="two fields">
+      <div class="field">
+        <label>
+          service-worker.js
+        </label>
+        <div class="ui fluid buttons"
+             v-bind:class="{disabled: (fileList.length === 0)}">
+          <button type="button" class="ui button"
+                  v-on:click="saveServiceWorkerCode"
+                  ref="SaveButton">SAVE</button>
+          <button v-bind:class="{positive: copied}" type="button" class="ui button"
+                  v-on:click="copyServiceWorkerCode"
+                  ref="CopyButton">COPY</button>
+        </div>
+      </div>
+      <div class="field">
+        <label>
+          service-worker-loader.js
+        </label>
+        <a href="./assets/service-worker-loader.js" 
+           download="service-worker-loader.js"
+            class="ui fluid button">
+           SAVE
+        </a>
+      </div>
+    </div>
+    
   </div>
+    
 </form>

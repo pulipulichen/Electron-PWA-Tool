@@ -2,6 +2,7 @@
 
 electron = require('electron');
 ipcRenderer = electron.ipcRenderer;
+shell = electron.shell;
 
 var appMethods = {
   
