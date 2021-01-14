@@ -12,6 +12,8 @@
   },
   "attributes": {
     "v-bind:class": {},
+    "v-if": {},
+    "v-bind:style": {},
     "v-on:click": {},
     "src": {},
     "v-model": {}

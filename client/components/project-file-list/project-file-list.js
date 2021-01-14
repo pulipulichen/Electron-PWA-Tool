@@ -21,7 +21,7 @@ bin/**/*
       excludePatternsText: excludePatternsText,
       defaultExcludePatternsText: excludePatternsText,
       fileList: [],
-      renew: false,
+      copied: false,
       inited: false
 //      prefixText: `\t'`,
 //      suffixText: `',`,
@@ -198,11 +198,11 @@ self.addEventListener('fetch', event => {
     },
     copyServiceWorkerCode () {
       ClipboardUtils.copyPlainString(this.serviceWorkerCode)
-      this.renew = false
+      this.copied = false
     },
     saveServiceWorkerCode () {
       FileUtils.download('service-worker.js', this.serviceWorkerCode)
-      this.renew = false
+      this.copied = false
     }
   }
 }

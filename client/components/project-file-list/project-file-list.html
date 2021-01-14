@@ -45,7 +45,7 @@
               v-bind:class="{disabled: (projectPath === '')}">List</button>
   </div>
   
-  <div class="field">
+  <div class="field" v-if="fileList.length > 0">
     <label>File lists</label>
     <textarea v-model="fileListText" onfocus="this.select()"
               class="ui attached"></textarea>
@@ -54,10 +54,9 @@
       <button type="button" class="ui button"
               v-on:click="saveServiceWorkerCode"
               ref="SaveButton">SAVE</button>
-      <button v-bind:class="{positive: renew}" type="button" class="ui button"
+      <button v-bind:class="{positive: copied}" type="button" class="ui button"
               v-on:click="copyServiceWorkerCode"
               ref="CopyButton">COPY</button>
     </div>
-      
   </div>
 </form>
