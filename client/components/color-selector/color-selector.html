@@ -15,7 +15,15 @@
           <td v-for="color in lineColor"
               v-bind:style="{'background-color': color}"
               v-on:click="select(color)">
-            <div class="text">{{ color }}</div></td>
+            
+            <!--
+            <div class="text"
+                 v-bind:class="{highlight: (color === highlightColor)}">{{ color }}</div>
+            -->
+            <i class="ui map marker icon"
+               v-bind:class="{visible: (color === highlightColor)}">
+            </i>
+          </td>
         </tr>
       </tbody>
     </table>

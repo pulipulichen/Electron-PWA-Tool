@@ -118,14 +118,14 @@ module.exports = {
       this.copiedHeaderHTML = false
     },
     selectThemeColor: async function () {
-      let color = await this.$parent.$refs.ColorSelector.selectColor()
+      let color = await this.$parent.$refs.ColorSelector.selectColor(this.theme_color)
       if (!color) {
         return false
       }
       this.theme_color = color
     },
     selectBackgroundColor: async function () {
-      let color = await this.$parent.$refs.ColorSelector.selectColor()
+      let color = await this.$parent.$refs.ColorSelector.selectColor(this.background_color)
       if (!color) {
         return false
       }

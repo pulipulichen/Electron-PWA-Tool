@@ -19,6 +19,7 @@
     "v-on:click": {},
     "src": {},
     "v-for": {},
-    "v-model": {}
+    "v-model": {},
+    "v-show": {}
   }
 }
