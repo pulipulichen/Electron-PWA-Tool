@@ -1,5 +1,8 @@
 <form class="ui form">
-  <h1>PWA Tools</h1>
+  
+  <h2>
+    Project's PRECACHE_URLS
+  </h2>
   
   <div class="field">
     <label>Project Path</label>
@@ -12,7 +15,8 @@
   
   
   <div class="field">
-    <textarea v-model="fileList" onfocus="this.select()"></textarea>
-    <button type="button" class="ui fluid button">COPY</button>
+    <textarea v-model="fileList" onfocus="this.select()"
+              class="ui attached"></textarea>
+    <button type="button" class="ui bottom attached fluid button">COPY</button>
   </div>
 </form>
