@@ -1,8 +1,10 @@
 {
   "elements": {
     "favicon-generator": {},
+    "manifest-generator": {},
     "ProjectFileList": {},
     "project-file-list": {},
+    "color-selector": {},
     "style": {
       "attributes": {
         "lang": {}
@@ -16,6 +18,7 @@
     "v-bind:style": {},
     "v-on:click": {},
     "src": {},
+    "v-for": {},
     "v-model": {}
   }
 }

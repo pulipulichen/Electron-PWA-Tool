@@ -117,5 +117,19 @@ module.exports = {
       ClipboardUtils.copyPlainString(this.headerHTML)
       this.copiedHeaderHTML = false
     },
+    selectThemeColor: async function () {
+      let color = await this.$parent.$refs.ColorSelector.selectColor()
+      if (!color) {
+        return false
+      }
+      this.theme_color = color
+    },
+    selectBackgroundColor: async function () {
+      let color = await this.$parent.$refs.ColorSelector.selectColor()
+      if (!color) {
+        return false
+      }
+      this.background_color = color
+    },
   }
 }
