@@ -4,5 +4,5 @@
 
 var appComponents = {
   //'template': httpVueLoader('./components/template.vue'),
-  'ProjectFileList': httpVueLoader('./components/ProjectFileList/ProjectFileList.vue'),
+  'project-file-list': httpVueLoader('./components/ProjectFileList/ProjectFileList.vue'),
 }
