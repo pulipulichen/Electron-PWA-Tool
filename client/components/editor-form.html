@@ -1,0 +1,18 @@
+<form class="ui form">
+  <h1>PWA Tools</h1>
+  
+  <div class="field">
+    <label>Project Path</label>
+    <div class="ui action input">
+      
+      <input type="text" placeholder="Project base path..." v-model="projectPath">
+      <button class="ui button">Search</button>
+    </div>
+  </div>
+  
+  
+  <div class="field">
+    <textarea v-model="fileList" onfocus="this.select()"></textarea>
+    <button type="button" class="ui fluid button">COPY</button>
+  </div>
+</form>
