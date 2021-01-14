@@ -1,14 +1,17 @@
 {
   "elements": {
+    "favicon-generator": {},
     "ProjectFileList": {},
     "project-file-list": {},
     "style": {
       "attributes": {
         "lang": {}
       }
-    }
+    },
+    "app-header": {}
   },
   "attributes": {
+    "v-on:click": {},
     "src": {},
     "v-model": {}
   }

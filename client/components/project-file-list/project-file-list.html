@@ -9,7 +9,9 @@
     <div class="ui action input">
       
       <input type="text" placeholder="Project base path..." v-model="projectPath">
-      <button class="ui button">List</button>
+      <button class="ui button"
+              type="button"
+              v-on:click="queryProjectFileList">List</button>
     </div>
   </div>
   
@@ -17,6 +19,7 @@
   <div class="field">
     <textarea v-model="fileList" onfocus="this.select()"
               class="ui attached"></textarea>
-    <button type="button" class="ui bottom attached fluid button">COPY</button>
+    <button v-show="fileList !== ''" type="button" class="ui bottom attached fluid button"
+            v-on:click="copyFileList">COPY</button>
   </div>
 </form>
