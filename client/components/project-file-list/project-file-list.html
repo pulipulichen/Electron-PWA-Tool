@@ -75,11 +75,19 @@
         <label>
           service-worker-loader.js
         </label>
-        <a href="./assets/service-worker-loader.js" 
-           download="service-worker-loader.js"
-            class="ui fluid button">
-           SAVE
-        </a>
+        <div class="ui fluid buttons">
+          <a href="./assets/service-worker-loader.js" 
+             download="service-worker-loader.js"
+              class="ui button">
+             SAVE
+          </a>
+          <button type="button"
+                  v-on:click="copyLoaderSrcCode"
+              class="ui button">
+             COPY SRC CODE
+          </button>
+        </div>
+          
       </div>
     </div>
     

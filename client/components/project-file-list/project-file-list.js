@@ -203,6 +203,9 @@ self.addEventListener('fetch', event => {
     saveServiceWorkerCode () {
       FileUtils.download('service-worker.js', this.serviceWorkerCode)
       this.copied = false
+    },
+    copyLoaderSrcCode () {
+      ClipboardUtils.copyPlainString(`<script src="./scripts/service-worker-loader.js"></script>`)
     }
   }
 }
