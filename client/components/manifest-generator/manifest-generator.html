@@ -1,0 +1,26 @@
+<form class="ui form segment">
+  
+  <h2>
+    Project's manifest.json
+  </h2>
+  
+  <div class="three fields">
+    <div class="field">
+      <label>Name</label>
+      <input type="text" v-model="name" onfocus="this.select()" />
+    </div>
+    <div class="field">
+      <label>Short Name</label>
+      <input type="text" v-model="short_name" onfocus="this.select()" />
+    </div>
+    <div class="field">
+      <label>Color</label>
+      <input type="text" v-model="background_color" onfocus="this.select()" />
+    </div>
+  </div>
+  
+  <div class="field">
+    <textarea v-model="description" onfocus="this.select()"></textarea>
+  </div>
+  
+</form>

@@ -49,8 +49,15 @@
     <label>File lists</label>
     <textarea v-model="fileListText" onfocus="this.select()"
               class="ui attached"></textarea>
-    <button v-bind:class="{disabled: (fileList.length === 0), positive: renew}" type="button" class="ui bottom attached fluid button"
-            v-on:click="copyServiceWorkerCode"
-            ref="CopyButton">COPY "service-worker.js" CODE</button>
+    <div class="ui bottom attached fluid buttons"
+         v-bind:class="{disabled: (fileList.length === 0)}">
+      <button type="button" class="ui button"
+              v-on:click="saveServiceWorkerCode"
+              ref="SaveButton">SAVE</button>
+      <button v-bind:class="{positive: renew}" type="button" class="ui button"
+              v-on:click="copyServiceWorkerCode"
+              ref="CopyButton">COPY</button>
+    </div>
+      
   </div>
 </form>

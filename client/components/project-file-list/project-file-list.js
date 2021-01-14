@@ -1,5 +1,5 @@
 
-/* global ClipboardUtils, ipcRenderer, ElectronUtils, dayjs */
+/* global ClipboardUtils, ipcRenderer, ElectronUtils, dayjs, FileUtils */
 
 module.exports = {
   data () {
@@ -31,7 +31,7 @@ bin/**/*
     this.dataLoad()
     
     this.inited = true
-    this.queryProjectFileList()
+    //this.queryProjectFileList()
   },
   watch: {
     projectPath () {
@@ -47,73 +47,8 @@ bin/**/*
     },
     fileListText () {
       return this.fileList.join('\n')
-    }
-  },
-  methods: {
-    dataLoad () {
-      let projectFileListData = localStorage.getItem('projectFileListData')
-      if (!projectFileListData) {
-        return false
-      }
-      
-      projectFileListData = JSON.parse(projectFileListData)
-      for (let key in projectFileListData) {
-        this[key] = projectFileListData[key]
-      }
     },
-    dataSave () {
-      if (this.inited === false) {
-        return false
-      }
-      
-      let keys = [
-        'projectPath',
-        'excludePatternsText',
-      ]
-      
-      let data = {}
-      keys.forEach(key => {
-        data[key] = this[key]
-      })
-      
-      data = JSON.stringify(data)
-      localStorage.setItem('projectFileListData', data)
-    },
-    queryProjectFileList () {
-      
-      //console.log(this.projectPath)
-      
-      let callbackID = ElectronUtils.getCallbackID('queryProjectFileList')
-      ipcRenderer.on(callbackID, (event, content) => {
-        //this.fileList = content.map(line => {
-        //  return this.prefixText + line + this.suffixText
-        //}).join('\n')
-        
-        this.fileList = content
-        
-        if (content.length > 0) {
-          this.renew = true
-          this.$refs.CopyButton.focus()
-        }
-        else {
-          this.renew = false
-        }
-      });
-      ipcRenderer.send('queryProjectFileList', {
-        projectPath: this.projectPath,
-        excludePatterns: this.excludePatterns,
-      }, callbackID);
-      
-      //return 'ok'
-    },
-    copyFileList () {
-      ClipboardUtils.copyPlainString(this.fileListText)
-      this.renew = false
-    },
-    resetExcludePatternsText () {
-      this.excludePatternsText = this.defaultExcludePatternsText
-    },
-    copyServiceWorkerCode () {
+    serviceWorkerCode () {
       let template = `/*
  Copyright 2016 Google Inc. All Rights Reserved.
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -194,7 +129,79 @@ self.addEventListener('fetch', event => {
     );
   }
 });`
-      ClipboardUtils.copyPlainString(template)
+      return template
+    },
+  },
+  methods: {
+    dataLoad () {
+      let projectFileListData = localStorage.getItem('projectFileListData')
+      if (!projectFileListData) {
+        return false
+      }
+      
+      projectFileListData = JSON.parse(projectFileListData)
+      for (let key in projectFileListData) {
+        this[key] = projectFileListData[key]
+      }
+    },
+    dataSave () {
+      if (this.inited === false) {
+        return false
+      }
+      
+      let keys = [
+        'projectPath',
+        'excludePatternsText',
+      ]
+      
+      let data = {}
+      keys.forEach(key => {
+        data[key] = this[key]
+      })
+      
+      data = JSON.stringify(data)
+      localStorage.setItem('projectFileListData', data)
+    },
+    queryProjectFileList () {
+      
+      //console.log(this.projectPath)
+      
+      let callbackID = ElectronUtils.getCallbackID('queryProjectFileList')
+      ipcRenderer.on(callbackID, (event, content) => {
+        //this.fileList = content.map(line => {
+        //  return this.prefixText + line + this.suffixText
+        //}).join('\n')
+        
+        this.fileList = content
+        
+        if (content.length > 0) {
+          this.renew = true
+          this.$refs.CopyButton.focus()
+        }
+        else {
+          this.renew = false
+        }
+      });
+      ipcRenderer.send('queryProjectFileList', {
+        projectPath: this.projectPath,
+        excludePatterns: this.excludePatterns,
+      }, callbackID);
+      
+      //return 'ok'
+    },
+    copyFileList () {
+      ClipboardUtils.copyPlainString(this.fileListText)
+      this.renew = false
+    },
+    resetExcludePatternsText () {
+      this.excludePatternsText = this.defaultExcludePatternsText
+    },
+    copyServiceWorkerCode () {
+      ClipboardUtils.copyPlainString(this.serviceWorkerCode)
+      this.renew = false
+    },
+    saveServiceWorkerCode () {
+      FileUtils.download('service-worker.js', this.serviceWorkerCode)
       this.renew = false
     }
   }

@@ -1,5 +1,5 @@
 
-export default {
+FileUtils = {
   /**
    * 下載檔案
    * https://stackoverflow.com/a/18197341/6645399
