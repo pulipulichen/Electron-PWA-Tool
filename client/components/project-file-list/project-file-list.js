@@ -17,7 +17,7 @@ bin/**/*
 **/*.manifest`
     
     return {
-      projectPath: 'D:\\xampp\\htdocs\\projects-html5\\HTML5-Wrapped-Text-Formatter',
+      projectPath: '',
       excludePatternsText: excludePatternsText,
       defaultExcludePatternsText: excludePatternsText,
       fileList: [],
