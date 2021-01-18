@@ -86,17 +86,12 @@ module.exports = {
       return `{
   "name": "${this.name}",
   "short_name": "${this.short_name}",
-  "start_url": ".",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "${this.background_color}",
   "theme_color": "${this.theme_color}",
   "description": "${this.description}",
   "icons": [{
-    "src": "${iconsPath}favicon.png",
-    "sizes": "512x512",
-    "type": "image/png"
-  },
-  {
    "src": "${iconsPath}android-icon-36x36.png",
    "sizes": "36x36",
    "type": "image\/png",
