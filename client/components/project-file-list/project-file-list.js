@@ -16,11 +16,21 @@ bin/**/*
 **/.*
 **/*.manifest`
     
+    let includePatternsText = `index.html
+manifest.json
+service-worker.js
+dist/**
+!**/*.md
+!**/*.map`
+    
     return {
       projectPath: '',
       excludePatternsText: excludePatternsText,
       defaultExcludePatternsText: excludePatternsText,
+      includePatternsText: includePatternsText,
+      defaultIncludePatternsText: includePatternsText,
       fileList: [],
+      mode: 'exclude',
       copied: false,
       inited: false
 //      prefixText: `\t'`,
@@ -39,11 +49,20 @@ bin/**/*
     },
     excludePatternsText () {
       this.dataSave()
+    },
+    includePatternsText () {
+      this.dataSave()
+    },
+    mode () {
+      this.dataSave()
     }
   },
   computed: {
     excludePatterns () {
       return this.excludePatternsText.trim().split('\n').map(line => line.trim())
+    },
+    includePatterns () {
+      return this.includePatternsText.trim().split('\n').map(line => line.trim())
     },
     fileListText () {
       return this.fileList.join('\n')
@@ -152,6 +171,8 @@ self.addEventListener('fetch', event => {
       let keys = [
         'projectPath',
         'excludePatternsText',
+        'includePatternsText',
+        'mode'
       ]
       
       let data = {}
@@ -182,9 +203,16 @@ self.addEventListener('fetch', event => {
           this.copied = false
         }
       });
+      
+      let patterns = this.excludePatterns
+      if (this.mode === 'include') {
+        patterns = this.includePatterns
+      }
+      
       ipcRenderer.send('queryProjectFileList', {
         projectPath: this.projectPath,
-        excludePatterns: this.excludePatterns,
+        mode: this.mode,
+        patterns: patterns,
       }, callbackID);
       
       //return 'ok'
@@ -195,6 +223,9 @@ self.addEventListener('fetch', event => {
     },
     resetExcludePatternsText () {
       this.excludePatternsText = this.defaultExcludePatternsText
+    },
+    resetIncludePatternsText () {
+      this.includePatternsText = this.defaultIncludePatternsText
     },
     copyServiceWorkerCode () {
       ClipboardUtils.copyPlainString(this.serviceWorkerCode)

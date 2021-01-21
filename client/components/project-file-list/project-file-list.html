@@ -19,10 +19,29 @@
     -->
   </div>
   <div class="field">
-    <textarea v-model="excludePatternsText" onfocus="this.select()"
-              class="ui attached"></textarea>
-    <button v-bind:class="{disabled: (excludePatternsText === defaultExcludePatternsText)}" type="button" class="ui bottom attached fluid button"
-            v-on:click="resetExcludePatternsText">RESET</button>
+    <label>
+      File List Pattern
+    </label>
+  </div>
+  <div class="field">
+    <select v-model="mode">
+      <option value="exclude">Exclude</option>
+      <option value="include">Include</option>
+    </select>
+  </div>
+  <div class="field">
+    <template v-if="mode === 'exclude'">
+      <textarea v-model="excludePatternsText" onfocus="this.select()"
+                class="ui attached"></textarea>
+      <button v-bind:class="{disabled: (excludePatternsText === defaultExcludePatternsText)}" type="button" class="ui bottom attached fluid button"
+              v-on:click="resetExcludePatternsText">RESET</button>
+    </template>
+    <template v-if="mode === 'include'">
+      <textarea v-model="includePatternsText" onfocus="this.select()"
+                class="ui attached"></textarea>
+      <button v-bind:class="{disabled: (includePatternsText === defaultIncludePatternsText)}" type="button" class="ui bottom attached fluid button"
+              v-on:click="resetIncludePatternsText">RESET</button>
+    </template>
   </div>
   
   <!--

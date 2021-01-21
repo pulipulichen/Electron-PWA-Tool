@@ -26,7 +26,7 @@ let events = {
 //    if (config.backupDictPath) {
 //      fs.writeFileSync(config.backupDictPath, projectPath, 'UTF8');
 //    }
-    let {projectPath, excludePatterns} = parameters
+    let {projectPath, mode, patterns} = parameters
 
     if (!fs.existsSync(projectPath) || fs.lstatSync(projectPath).isDirectory() === false) {
       event.sender.send(_callback_id, [])
@@ -46,13 +46,33 @@ let events = {
 //      '**/*.manifest',
 //    ]
     
-    let findPatterns = [
-      projectPath + '**',
-    ]
+    let findPatterns
     
-    excludePatterns.forEach(p => {
-      findPatterns.push('!' + projectPath + p,)
-    })
+    if (mode === 'exclude') {
+      findPatterns = [
+        projectPath + '**',
+      ]
+
+      patterns.forEach(p => {
+        findPatterns.push('!' + projectPath + p)
+      })
+    }
+    else if (mode === 'include') {
+      findPatterns = [
+      ]
+
+      patterns.forEach(p => {
+        if (p.startsWith('!')) {
+          p = p.slice(1)
+          findPatterns.push('!' + projectPath + p)
+        }
+        else {
+          findPatterns.push(projectPath + p)
+        }
+      })
+    }
+    
+    // -----------------
 
     var files = globall.sync(findPatterns, {
       nodir: true
