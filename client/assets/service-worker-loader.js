@@ -1,4 +1,6 @@
-if ('serviceWorker' in navigator) {
+let enableServiceWorker = ('serviceWorker' in navigator)
+// enableServiceWorker = false
+if (enableServiceWorker) {
   navigator.serviceWorker.register('./service-worker.js')
     .then(function (registration) {
       // Registration was successful
