@@ -68,8 +68,7 @@ dist/**
       return this.fileList.join('\n')
     },
     serviceWorkerCode () {
-      let template = `const PRECACHE = 'precache-v${dayjs().format('YYYY-MMDD-hhmmss')}'
-/*
+      let template = `/*
  Copyright 2016 Google Inc. All Rights Reserved.
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -88,7 +87,8 @@ dist/**
 // Change to v2, etc. when you update any of the local resources, which will
 // in turn trigger the install event again.
 const RUNTIME = 'runtime';
-
+const PRECACHE = 'precache-v${dayjs().format('YYYY-MMDD-hhmmss')}'
+      
 /**
  * How to build cache list?
  * 
