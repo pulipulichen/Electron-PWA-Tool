@@ -209,6 +209,13 @@ self.addEventListener('fetch', event => {
         patterns = this.includePatterns
       }
       
+      //let projectPath = this.projectPath.split('[').join('\\[')
+      //            .split(']').join('\\]')
+      
+      //let projectPath = this.projectPath.split(']').join('\\]')
+      
+      //console.log(projectPath)
+      
       ipcRenderer.send('queryProjectFileList', {
         projectPath: this.projectPath,
         mode: this.mode,

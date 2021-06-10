@@ -10,6 +10,12 @@ const glob = require('glob');
 const globby = require('globby'); 
 const globall = require('glob-all'); 
 
+//console.log(globall.sync([
+//  '/home/pudding/Documents/NetBeans-Projects/[html\\]/PWA-Invoice-List/**'
+//], {
+//  nodir: true
+//}))
+
 let compareString = function (a, b) {
   if (a < b) {
     return -1;
@@ -22,10 +28,7 @@ let compareString = function (a, b) {
 
 let events = {
   queryProjectFileList: function (event, parameters, _callback_id) {
-//
-//    if (config.backupDictPath) {
-//      fs.writeFileSync(config.backupDictPath, projectPath, 'UTF8');
-//    }
+
     let {projectPath, mode, patterns} = parameters
 
     if (!fs.existsSync(projectPath) || fs.lstatSync(projectPath).isDirectory() === false) {
@@ -36,6 +39,10 @@ let events = {
     if (!projectPath.endsWith('/')) {
       projectPath = projectPath + '/'
     }
+    
+    let queryProjectPath = projectPath.split(']').join('\\]')
+    
+    //console.log(projectPath)
     
 //    let excludePatterns = [
 //      'node_modules/**/*',
@@ -50,11 +57,11 @@ let events = {
     
     if (mode === 'exclude') {
       findPatterns = [
-        projectPath + '**',
+        queryProjectPath + '**',
       ]
 
       patterns.forEach(p => {
-        findPatterns.push('!' + projectPath + p)
+        findPatterns.push('!' + queryProjectPath + p)
       })
     }
     else if (mode === 'include') {
@@ -64,16 +71,18 @@ let events = {
       patterns.forEach(p => {
         if (p.startsWith('!')) {
           p = p.slice(1)
-          findPatterns.push('!' + projectPath + p)
+          findPatterns.push('!' + queryProjectPath + p)
         }
         else {
-          findPatterns.push(projectPath + p)
+          findPatterns.push(queryProjectPath + p)
         }
       })
     }
     
+    //console.log(findPatterns)
+    
     // -----------------
-
+    
     var files = globall.sync(findPatterns, {
       nodir: true
     });
@@ -81,6 +90,8 @@ let events = {
     for (let i = 0; i < files.length; i++) {
       files[i] = files[i].slice(projectPath.length)
     }
+    
+    //console.log(files)
     
     files = files.sort((a, b) => {
       let aParts = a.split('/')
@@ -139,7 +150,7 @@ let events = {
       }*/
     })
     
-    //console.log(files)
+    console.log(files)
     
     event.sender.send(_callback_id, files)
   }

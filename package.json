@@ -40,6 +40,7 @@
   },
   "dependencies": {
     "glob-all": "^3.2.1",
+    "globby": "^11.0.3",
     "jquery": "^3.5.1"
   }
 }
